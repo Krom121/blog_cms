@@ -1,6 +1,7 @@
 #  Django project
 .vscode
-migrations
+migration
+__pycache__
 Pipfile.lock
 Pipfile
 db.sqlite3

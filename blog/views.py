@@ -1,23 +1,32 @@
+import requests
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
-from django.urls import reverse_lazy
-from django.views.generic import TemplateView, FormView, ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import View, TemplateView, FormView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
 from .forms import SubscribeForm, CommentForm, ContactForm
 
 
-
+class ContactView(FormView):
+    form_class = ContactForm
+    template_name = 'forms/contact_form.html'
+    success_url = reverse_lazy('about_us')
+    def contact_form_invalid(self, form):
+        form.save()
+        return super(ContactView, self).form_invalid(form)
 
 class SubscriberView(FormView):
     form_class = SubscribeForm
     template_name = 'forms/sub_form.html'
-    def form_invalid(self, form):
+    success_url = reverse_lazy('about_us')
+    def subscriber_form_invalid(self, form):
         form.save()
         return super(SubscriberView, self).form_invalid(form)
 
-class HomeView(TemplateView, SubscriberView):
+class HomeView(View):
     template_name = 'index.html'
 
 class AboutView(TemplateView):
@@ -27,6 +36,13 @@ class LoginView(TemplateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('dashboard')
     template_name = 'registration/login.html'
+
+    def Login_form_valid(self, form):
+        view = super(Login, self).form_valid(form)
+        username, password = form.cleaned_data.get('username'), form.cleaned_data.get('password1')
+        user = authenticate(username=username, password=password)
+        login(self.request, user)
+        return view
 
 class DashView(TemplateView):
     template_name = 'dashboard/dashboard.html'

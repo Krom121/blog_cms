@@ -5,7 +5,7 @@ from blog import views
 app_name = 'blog'
 
 urlpatterns = [
-    path('',views.HomeView.as_view(), name='home'),
+    path('', views.HomeView.as_view(), name="home"),
     path('about_us/',views.AboutView.as_view(), name='about'),
     ## AUTH URLS
     path('login/', auth_views.LoginView.as_view(), name='login'),
