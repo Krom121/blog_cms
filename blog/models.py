@@ -21,10 +21,8 @@ class Subscriber(models.Model):
 
 class NewContact(models.Model):
     first_name = models.CharField(max_length=100,blank=True, null=True)
-    Last_name = models.CharField(max_length=100,blank=True, null=True)
+    last_name = models.CharField(max_length=100,blank=True, null=True)
     email = models.EmailField(max_length=100,blank=True, null=True)
-    company = models.CharField(max_length=100,blank=True, null=True)
-    current_website = models.CharField(max_length=100,blank=True, null=True)
     tell_us_more = models.TextField()
 
     def __str__(self):
@@ -79,14 +77,7 @@ class Post(models.Model):
     published = PublishedManager() # Our published manager.
 
     def get_absolute_url(self):
-        return reverse("post-detail", kwargs={
-
-            "slug": self.slug,
-            "publish": self.publish,
-            "tags": self.tags,
-            "pk": self.pk, 
-        
-        })
+        return reverse('blog:post_detail',args=[self.publish.year,self.publish.month,self.publish.day,self.slug])
 
     class Meta:
         ordering = ('-publish',)
