@@ -1,11 +1,9 @@
-from django import forms
+from django.forms import ModelForm
 from .models import Subscriber, Comment, NewContact
 
 #### SUBCRIBER FORM #######
 
-class SubscribeForm(forms.ModelForm):
-    name = forms.CharField(required=True)
-    email = forms.EmailField(required=True)
+class SubscribeForm(ModelForm):
 
     class Meta:
         model = Subscriber
@@ -13,11 +11,7 @@ class SubscribeForm(forms.ModelForm):
 
 ##### CONTACT FORM #######
 
-class ContactForm(forms.ModelForm):
-    first_name = forms.CharField(required=True)
-    last_name = forms.CharField(required=True)
-    email = forms.EmailField(required=True)
-    tell_us_more = forms.Textarea()
+class ContactForm(ModelForm):
 
     class Meta:
         model = NewContact
@@ -25,10 +19,7 @@ class ContactForm(forms.ModelForm):
 
 ##### POST COMMENT FORM #####
 
-class CommentForm(forms.ModelForm):
-    name = forms.CharField(required=True)
-    email = forms.EmailField(required=True)
-    your_comment = forms.Textarea()
+class CommentForm(ModelForm):
 
     class Meta:
         model = Comment
