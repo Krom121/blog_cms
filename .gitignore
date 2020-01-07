@@ -1,5 +1,5 @@
 #  Django project
-
+.vscode
 migrations
 Pipfile.lock
 Pipfile
