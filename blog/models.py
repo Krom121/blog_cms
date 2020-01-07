@@ -114,7 +114,7 @@ class Comment(models.Model):
 ##### AOUT PAGE MODEL ####
 
 class AboutPage(models.Model):
-    title = name = models.CharField(max_length=20,blank=True, null=True, unique=True)
+    title = models.CharField(max_length=20,blank=True, null=True, unique=True)
     slug = models.SlugField(blank=True, null=True,unique=True)
     about_header_image = ProcessedImageField(upload_to='about_headers/',processors=[ResizeToFill(1200, 600)],format= 'PNG',options={'quality': 60})
     description = RichTextField(blank=True, null=True)
