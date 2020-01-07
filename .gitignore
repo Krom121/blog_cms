@@ -1,0 +1,6 @@
+#  Django project
+
+migrations
+Pipfile.lock
+Pipfile
+db.sqlite3
