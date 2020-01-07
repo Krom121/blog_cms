@@ -7,7 +7,7 @@ app_name = 'blog'
 urlpatterns = [
     path('',views.HomeView.as_view(), name='home'),
     path('about_us/',views.AboutView.as_view(), name='about'),
-    path('contact_us',views.ContactView.as_view(), name='contact'),
+    ## AUTH URLS
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('dashboard/', views.DashView.as_view(), name='dashboard'),

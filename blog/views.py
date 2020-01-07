@@ -8,21 +8,20 @@ from .models import Post
 from .forms import SubscribeForm, CommentForm, ContactForm
 
 
-class HomeView(TemplateView):
+
+
+class SubscriberView(FormView):
+    form_class = SubscribeForm
+    template_name = 'forms/sub_form.html'
+    def form_invalid(self, form):
+        form.save()
+        return super(SubscriberView, self).form_invalid(form)
+
+class HomeView(TemplateView, SubscriberView):
     template_name = 'index.html'
 
 class AboutView(TemplateView):
     template_name = 'about_us/about.html'
-
-class ContactView(FormView):
-    form_class = ContactForm
-    template_name = 'contact_us/contact.html'
-    success_url = reverse_lazy('home')
-
-    ### FROM LOGIC ###
-    def form_invalid(self, form):
-        form.save()
-        return super(ContactView, self).form_invalid(form)
 
 class LoginView(TemplateView):
     form_class = UserCreationForm
