@@ -1,7 +1,8 @@
 {% extends 'layout/base.html' %}
 {% load static %}
 {% block content %}
-{% for post in posts %}
-<h1><a href="{{ post.get_absolute_url }}">{{post.title}}</a></h1>
+{% for post in featured %}
+<h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
+{% include 'forms/sub_form.html' %}
 {% endfor %}
 {% endblock %}

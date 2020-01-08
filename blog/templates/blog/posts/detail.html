@@ -2,4 +2,11 @@
 {% load static %}
 {% block content %}
 <h1>{{ post.title }}</h1>
+<form action="{{ action }}" method="POST" role="form">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <input type="submit" value="Save" class="btn btn-success">
+<form>
 {% endblock %}

@@ -1,83 +1,133 @@
 import requests
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
+from django.views.generic.edit import FormMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse, reverse_lazy
 from django.views.generic import View, TemplateView, FormView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
 from .forms import SubscribeForm, CommentForm, ContactForm
 
 
-class ContactView(FormView):
-    form_class = ContactForm
-    template_name = 'forms/contact_form.html'
-    success_url = reverse_lazy('about_us')
-    def contact_form_invalid(self, form):
-        form.save()
-        return super(ContactView, self).form_invalid(form)
+#### GENERIC VIEWS #####
 
-class SubscriberView(FormView):
-    form_class = SubscribeForm
-    template_name = 'forms/sub_form.html'
-    success_url = reverse_lazy('about_us')
-    def subscriber_form_invalid(self, form):
-        form.save()
-        return super(SubscriberView, self).form_invalid(form)
-
-class HomeView(View):
-    template_name = 'index.html'
-
-class AboutView(TemplateView):
+class AboutView(View):
+    model = Post
     template_name = 'about_us/about.html'
+
+    def get_context_data(self, **kwargs):
+        featured = Post.published.filter(featured=True)
+        latest = Post.published.order_by('-publish')[0:3]
+        context = super().get_context_data(**kwargs)
+        context['featured'] = featured
+        context['latest'] = latest
+        return context
+
+class ContactUsView(View):
+    model = Post
+    template_name = 'contact_us/contact.html'
+
+    def post(self, request, *args, **kwargs):
+        form = ContactForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            #return render(request, 'contact-us.html', {'form': form})
+        return self.get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        form = ContactForm()
+        featured = Post.published.filter(featured=True)
+        latest = Post.published.order_by('-publish')[0:3]
+        context = super().get_context_data(**kwargs)
+        context['featured'] = featured
+        context['latest'] = latest
+        context['form'] = form
+        return context
+
+#### AUTH VIEWS #####
 
 class LoginView(TemplateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('dashboard')
     template_name = 'registration/login.html'
 
-    def Login_form_valid(self, form):
-        view = super(Login, self).form_valid(form)
+    def form_valid(self, form):
+        view = super(LogIn, self).form_valid(form)
         username, password = form.cleaned_data.get('username'), form.cleaned_data.get('password1')
         user = authenticate(username=username, password=password)
         login(self.request, user)
         return view
 
+##### DASHBOASRD VIEW ####
+
 class DashView(TemplateView):
+    model = Post
     template_name = 'dashboard/dashboard.html'
 
-class PostListView(ListView):
-    queryset = Post.published.all()
-    context_object_name = 'posts'
+    def get_context_data(self, **kwargs):
+        featured = Post.published.filter(featured=True)
+        latest = Post.published.order_by('-publish')[0:3]
+        context = super().get_context_data(**kwargs)
+        context['featured'] = featured
+        context['latest'] = latest
+        return context
+
+#### POST VIEWS MAIN LANDING PAGE ######
+
+class PostListView(SuccessMessageMixin, ListView):
+    model = Post
     template_name = 'blog/list.html'
-
-def post_detail(request, year, month, day, post):
-    post = get_object_or_404(Post, slug=post,status='published',publish__year=year,publish__month=month,publish__day=day)
-    # List of active comments for this post
-    comments = post.comments.filter(active=True)
-
-    new_comment = None
-
-    if request.method == 'POST':
-        # A comment was posted
-        comment_form = CommentForm(data=request.POST)
-        if comment_form.is_valid():
-            # Create Comment object but don't save to database yet          
-            new_comment = comment_form.save(commit=False)
-            # Assign the current post to the comment
-            new_comment.post = post
-            # Save the comment to the database
-            new_comment.save()
-    else:
-        comment_form = CommentForm()
-        post_tags_ids = post.tags.values_list('id', flat=True)
-        similar_posts = Post.published.filter(tags__in=post_tags_ids).exclude(id=post.id)
-        similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags','-publish')[:4]
-    return render(request, 'blog/posts/detail.html', {'post': post, 'comments': comments,
-                   'new_comment': new_comment,
-                   'comment_form': comment_form, 'similar_posts': similar_posts})
+    context_object_name = 'post'
+    paginate_by = 1
+    success_url = 'post-list'
+    success_message = "You are now a subscriber Thank you"
+    
+   
+    def post(self, request, *args, **kwargs):
+        form = SubscribeForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            #return render(request, 'contact-us.html', {'form': form})
+        return self.get(request, *args, **kwargs)
     
 
- 
+
+    def get_context_data(self, **kwargs):
+        form = SubscribeForm()
+        post = Post.published.all()
+        featured = Post.published.filter(featured=True)
+        latest = Post.published.order_by('-publish')[0:3]
+        context = super().get_context_data(**kwargs)
+        context['post'] = post
+        context['featured'] = featured
+        context['latest'] = latest
+        context['form'] = form
+        return context
+
+
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'blog/posts/detail.html'
+    context_object_name = 'post'
+
+    def get_context_data(self, **kwargs):
+        form = CommentForm()
+        context = super().get_context_data(**kwargs)
+        context['form'] = form
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            post = self.get_object()
+            form.instance.user = request.user
+            form.instance.post = post
+            form.save()
+            return redirect(reverse("post-detail", kwargs={
+                'pk': post.pk
+            }))
     
