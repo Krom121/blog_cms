@@ -7,7 +7,7 @@ from blog.views import (ContactUsView, DashView, PostDetailView,
     PostListView, AboutView 
 )
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('batmans-admin/', admin.site.urls),
     ## BLOG URLS
     path('', PostListView.as_view(), name='post-list'),
     path('post/<slug>/<pk>/', PostDetailView.as_view(), name='post-detail'),
