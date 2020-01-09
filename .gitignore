@@ -3,5 +3,5 @@
 migration
 __pycache__
 Pipfile.lock
-Pipfile
+local.py
 db.sqlite3

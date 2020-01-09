@@ -1,0 +1,22 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pylint = "*"
+
+[packages]
+django = "*"
+pillow = "*"
+django-ckeditor = "*"
+requests = "*"
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
+django-braces = "*"
+django-imagekit = "*"
+django-taggit = "*"
+
+[requires]
+python_version = "3.8"

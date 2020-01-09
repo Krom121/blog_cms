@@ -1,0 +1,13 @@
+{% load static %}
+<header class="header">
+    <nav class="nav">
+        <div class="brand">
+            <a href="{% url 'post-list' %}"><img src="#" alt="Brand Logo"></a>
+        </div>
+        <ul class="main-nav">
+           <li class="nav-links"><a href="{% url 'post-list' %}" class="nav-links">Blog</a></li>
+           <li class="nav-links"><a href="{% url 'about' %}" class="nav-links">About</a></li>
+           <li class="nav-links"><a href="{% url 'contactus' %}" class="nav-links">Contact</a></li>
+        </ul>
+    </nav>
+</header>

@@ -8,8 +8,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'v#^3wwqcu_p*w2b^^m+bs4#z2)i3(oow5mrp-81!8ok81r4jvc'
+try:
+    from .local import *
 
+except ImportError:
+    pass
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -30,6 +33,7 @@ INSTALLED_APPS = [
     'imagekit',
     'taggit',
     'django_filters',
+    'rest_framework',
     'blog',
 ]
 
