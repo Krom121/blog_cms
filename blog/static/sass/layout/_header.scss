@@ -1,0 +1,18 @@
+.header{
+    height: 60vh;
+    background-image: linear-gradient(to right,
+    rgba(#FE632E, 0.5), 
+    rgba(red, 0.4)), 
+    url(../img/blog-main.jpg);
+    background-size: cover;
+    background-position: top;
+    position: relative;
+}
+
+.cta{
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}

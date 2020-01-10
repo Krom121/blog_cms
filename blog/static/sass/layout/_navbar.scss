@@ -1,0 +1,25 @@
+.navbar{
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.nav_list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.nav-items, .nav-links{
+    color: seashell;
+    font-size: 2rem;
+    padding: 0 1rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    list-style-type: none;
+}

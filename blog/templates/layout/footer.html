@@ -1,11 +1,15 @@
 {% load static %}
 <footer class="footer">
-    <ul class="footer-nav">
-        <li class="footer-items"><a href="{% url 'post-list' %}" class="footer-link">Blog</a></li>
-        <li class="footer-items"><a href="{% url 'about' %}" class="footer-link">About</a></li>
-        <li class="footer-items"><a href="{% url 'contactus' %}" class="footer-link">Contact Us</a></li>
-    </ul>
-    <div class="copyright">
-        
+        <ul class="nav_list">
+           <li class="nav-items"><a href="{% url 'post-list' %}" class="nav-links">Blog</a></li>
+           <li class="nav-items"><a href="{% url 'about' %}" class="nav-links">About</a></li>
+           <li class="nav-items"><a href="{% url 'contactus' %}" class="nav-links">Contact</a></li>
+        </ul>
+        <div class="footer__copyright margin-top-md">
+            <p>
+                Built and designed by Pytonixs Ltd. 
+            </p>
+            <p>Copyright &copy; 2019 Alrights are reserved.</p>
+        </div>
     </div>
 </footer>

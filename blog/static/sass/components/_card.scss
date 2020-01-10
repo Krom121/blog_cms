@@ -1,0 +1,26 @@
+.blog-card{
+    width: 100%;
+    color: seashell;
+    padding: .5rem;
+    margin: 1rem;
+    background-color: black;
+    
+    &__title{
+        font-size: 1.8rem;
+        margin-top: .5rem;
+    }
+
+    &__date{
+        font-size: 1.6rem;
+        margin-top: .5rem;
+    }
+
+    &__body{
+        font-size: 1.4rem;
+        margin-top: .5rem;
+    }
+}
+
+.blog-card__img{
+    width: 100%;
+}

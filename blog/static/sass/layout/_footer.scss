@@ -1,0 +1,14 @@
+.footer{
+    background:  linear-gradient(to right,
+    rgba(#FE632E, 0.8), 
+    rgba(red, 0.6));
+    color: seashell;
+    padding: 10rem 0;
+    font-size: 1.4rem;
+}
+
+.footer__copyright{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}

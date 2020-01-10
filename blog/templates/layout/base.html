@@ -2,11 +2,15 @@
 <html lang="en">
 {% include "layout/head.html" %}
 <body>
+{% block header %}
 {% include "layout/header.html" %}
+{% endblock %}
 {% include "layout/messages.html" %}
+<main>
 {% block content %}
 
 {% endblock %}
+</main>
 {% include 'layout/footer.html' %}
 </body>
 </html>

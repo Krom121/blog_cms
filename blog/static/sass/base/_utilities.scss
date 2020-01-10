@@ -1,0 +1,48 @@
+
+.margin-bottom-sm{margin-bottom: 2rem;
+    @include respond(tab-port){
+        margin-bottom: 1rem;
+    }
+}
+
+.margin-bottom-md{
+    margin-bottom: 4rem;
+}
+
+.margin-bottom-lg{margin-bottom: 8rem;
+    @include respond(tab-port){
+        margin-bottom: 4rem;
+    }
+}
+
+.margin-bottom-xlg{margin-bottom: 10rem;
+    @include respond(tab-port){
+        margin-bottom: 4rem;
+    }
+}
+
+.margin-top-sm{margin-top: 2rem;
+
+    @include respond(tab-port){
+        margin-top: 1.5rem;
+    }
+}
+
+.margin-top-md{margin-top: 6rem;
+
+    @include respond(tab-port){
+        margin-top: 4rem;
+    }
+}
+
+.margin-top-lg{margin-top: 8rem;
+
+    @include respond(tab-port){
+        margin-top: 4rem;
+    }
+}
+.margin-top-huge{margin-top: 10rem;
+    @include respond(tab-port){
+        margin-bottom: 5rem;
+    }
+}

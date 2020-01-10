@@ -1,0 +1,21 @@
+.list-flex-container{
+    display: flex;
+    flex-direction: column;
+    flex-flow: wrap;
+}
+
+.left-col{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 75%;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-top: 1rem;
+}
+
+.right-col{
+    background-color: rebeccapurple;
+    width: 25%;
+    
+}

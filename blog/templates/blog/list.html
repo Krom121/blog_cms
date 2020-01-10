@@ -1,8 +1,24 @@
 {% extends 'layout/base.html' %}
 {% load static %}
 {% block content %}
-{% for post in featured %}
-<h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
-{% include 'forms/sub_form.html' %}
-{% endfor %}
+<div class="list-flex-container">
+    <div class="left-col">
+    {% for post in post %}
+    <div class="blog-card">
+        <a href="{{ post.get_absolute_url }}"><img src="{{ post.image_thumbnail.url }}" alt="{{ post.title }}" class="blog-card__img"></a>
+        <h5 class="blog-card__title">{{ post.title }}</h5>
+        <div class="blog-card__date">Published by {{ post.author }}</div>
+            <div class="blog-card__body">
+                {{ post.description|truncatewords:30 | safe }}
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+    <div class="right-col">
+        {% for post in latest %}
+            {{ post.title }}
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock %}

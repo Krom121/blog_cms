@@ -21,6 +21,7 @@ class AboutView(TemplateView):
     def get_context_data(self, **kwargs):
         form = ContactForm()
         context = super().get_context_data(**kwargs)
+        context['title'] = 'About Us'
         context['form'] = form
         return context
 
@@ -40,6 +41,7 @@ class ContactUsView(TemplateView):
         featured = Post.published.filter(featured=True)
         latest = Post.published.order_by('-publish')[0:3]
         context = super().get_context_data(**kwargs)
+        context['title'] = 'Contact Us'
         context['featured'] = featured
         context['latest'] = latest
         context['form'] = form
@@ -99,6 +101,7 @@ class PostListView(ListView):
         featured = Post.published.filter(featured=True)
         latest = Post.published.order_by('-publish')[0:3]
         context = super().get_context_data(**kwargs)
+        context['title'] = 'Welcome'
         context['post'] = post
         context['featured'] = featured
         context['latest'] = latest
