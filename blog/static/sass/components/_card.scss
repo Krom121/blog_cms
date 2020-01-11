@@ -1,9 +1,9 @@
 .blog-card{
-    width: 100%;
-    color: seashell;
+
+    flex: 1 0 31%; 
+    color: #344;
     padding: .5rem;
-    margin: 1rem;
-    background-color: black;
+    margin: .6rem;
     
     &__title{
         font-size: 1.8rem;

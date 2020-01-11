@@ -24,6 +24,12 @@ body {
   text-transform: uppercase;
   letter-spacing: .2rem; }
 
+.margin-bottom-xsm {
+  margin-bottom: 1rem; }
+  @media (max-width: 56.25em) {
+    .margin-bottom-xsm {
+      margin-bottom: 1rem; } }
+
 .margin-bottom-sm {
   margin-bottom: 2rem; }
   @media (max-width: 56.25em) {
@@ -70,11 +76,10 @@ body {
       margin-bottom: 5rem; } }
 
 .blog-card {
-  width: 100%;
-  color: seashell;
+  flex: 1 0 31%;
+  color: #344;
   padding: .5rem;
-  margin: 1rem;
-  background-color: black; }
+  margin: .6rem; }
   .blog-card__title {
     font-size: 1.8rem;
     margin-top: .5rem; }
@@ -122,11 +127,12 @@ body {
   font-size: 2rem;
   padding: 0 1rem;
   text-transform: uppercase;
+  letter-spacing: 3px;
   text-decoration: none;
   list-style-type: none; }
 
 .footer {
-  background: linear-gradient(to right, rgba(254, 99, 46, 0.8), rgba(255, 0, 0, 0.6));
+  background: linear-gradient(to top, rgba(254, 99, 46, 0.9), rgba(255, 0, 0, 0.8));
   color: seashell;
   padding: 10rem 0;
   font-size: 1.4rem; }
@@ -136,22 +142,47 @@ body {
   justify-content: space-evenly;
   align-items: center; }
 
-.list-flex-container {
+.blog-list-grid {
+  display: flex;
+  padding: 1rem; }
+
+.col-left {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 2;
+  padding: 1rem; }
+
+.col-right {
   display: flex;
   flex-direction: column;
-  flex-flow: wrap; }
+  flex: 1; }
 
-.left-col {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  width: 75%;
-  padding-left: 10%;
-  padding-right: 10%;
-  margin-top: 1rem; }
+.latest-post {
+  text-align: center; }
+  .latest-post__primary-title {
+    font-size: 2.5rem; }
+  .latest-post__title {
+    font-size: 1.8rem;
+    color: #344; }
+  .latest-post__link {
+    text-decoration: none; }
 
-.right-col {
-  background-color: rebeccapurple;
-  width: 25%; }
+.featured-post {
+  text-align: center; }
+  .featured-post__primary-title {
+    font-size: 2.5rem; }
+  .featured-post__title {
+    font-size: 1.8rem;
+    color: #344; }
+  .featured-post__link {
+    text-decoration: none; }
+
+.category {
+  text-align: center; }
+  .category__primary-title {
+    font-size: 2.5rem; }
+  .category__title {
+    font-size: 1.8rem;
+    color: #344; }
 
 /*# sourceMappingURL=main.css.map */

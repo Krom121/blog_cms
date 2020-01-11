@@ -1,24 +1,44 @@
 {% extends 'layout/base.html' %}
 {% load static %}
 {% block content %}
-<div class="list-flex-container">
-    <div class="left-col">
-    {% for post in post %}
-    <div class="blog-card">
-        <a href="{{ post.get_absolute_url }}"><img src="{{ post.image_thumbnail.url }}" alt="{{ post.title }}" class="blog-card__img"></a>
-        <h5 class="blog-card__title">{{ post.title }}</h5>
-        <div class="blog-card__date">Published by {{ post.author }}</div>
-            <div class="blog-card__body">
-                {{ post.description|truncatewords:30 | safe }}
-        </div>
+<div class="blog-list-grid">
+  <div class="col-left">
+  {% for post in post  %}
+  <div class="blog-card">
+    <a href="{{post.get_absolute_url}}"><img src="{{post.image_thumbnail.url}}" alt="{{post.title}}" class="blog-card__img"></a>
+    <h5 class="blog-card__title">{{post.title}}</h5>
+    <div class="blog-card__date">Published by {{post.author}}</div>
+    <div class="blog-card__body">
+      {{post.description | truncatewords:30 | safe}}
     </div>
-    {% endfor %}
+  </div>
+  {% endfor %}
+  </div>
+  <div class="col-right">
+    <div class="category margin-top-sm">
+      <h3 class="category__primary-title">Categories</h3>
+      {% for cat in category %}
+      <h5 class="category__title margin-top-sm margin-bottom-xsm">{{ cat.title }}</h5>
+      {% endfor %}
+      </div>
+    <div class="latest-post">
+      <h3 class="latest-post__primary-title">Latest Posts</h3>
+      {% for post in latest %}
+      <a href="{{post.get_absolute_url}}" class="latest-post__link">
+        <h5 class="latest-post__title margin-top-sm margin-bottom-xsm">{{post.title}}</h5>
+      </a>
+      {% endfor %}
     </div>
-    <div class="right-col">
-        {% for post in latest %}
-            {{ post.title }}
-        {% endfor %}
+    <div class="featured-post margin-top-sm">
+      <h3 class="featured-post__primary-title">Featured Posts</h3>
+      {% for post in featured %}
+      <div class="featured-post">
+        <a href="{{post.get_absolute_url}}" class="featured-post__link">
+          <h5 class="featured-post__title margin-top-sm margin-bottom-xsm">{{post.title}}</h5>
+        </a>
+      </div>
+      {% endfor %}
     </div>
+  </div>
 </div>
-
 {% endblock %}

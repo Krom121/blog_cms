@@ -8,7 +8,7 @@ from django.views.generic.edit import FormMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView, FormView, ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post, AboutPage
+from .models import Post, AboutPage, Category
 from .forms import SubscribeForm, CommentForm, ContactForm
 
 
@@ -65,6 +65,7 @@ class LoginView(TemplateView):
 
 class DashView(TemplateView):
     model = Post
+    
     template_name = 'dashboard/dashboard.html'
     context_object_name = 'post'
 
@@ -97,11 +98,12 @@ class PostListView(ListView):
 
     def get_context_data(self, **kwargs):
         form = SubscribeForm()
-        post = Post.published.all()
+        post = Post.published.all()[0:6]
         featured = Post.published.filter(featured=True)
-        latest = Post.published.order_by('-publish')[0:3]
+        latest = Post.published.order_by('-publish')[0:4]
         context = super().get_context_data(**kwargs)
         context['title'] = 'Welcome'
+        context['category'] = Category.objects.filter()
         context['post'] = post
         context['featured'] = featured
         context['latest'] = latest

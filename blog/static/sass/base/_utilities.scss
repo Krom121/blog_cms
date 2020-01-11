@@ -1,4 +1,9 @@
+.margin-bottom-xsm{margin-bottom: 1rem;
+    @include respond(tab-port){
+        margin-bottom: 1rem;
+    }
 
+}
 .margin-bottom-sm{margin-bottom: 2rem;
     @include respond(tab-port){
         margin-bottom: 1rem;

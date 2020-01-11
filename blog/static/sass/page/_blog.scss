@@ -1,21 +1,65 @@
-.list-flex-container{
+.blog-list-grid{
+    display: flex;
+    padding: 1rem;
+}
+
+
+.col-left{
+    display: flex;
+    flex-wrap: wrap;
+    flex: 2;
+    padding: 1rem;
+}
+
+.col-right{
     display: flex;
     flex-direction: column;
-    flex-flow: wrap;
+    flex: 1;
 }
 
-.left-col{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 75%;
-    padding-left: 10%;
-    padding-right: 10%;
-    margin-top: 1rem;
+.latest-post{
+    text-align: center;
+
+    &__primary-title{
+        font-size: 2.5rem;
+    }
+
+    &__title{
+        font-size: 1.8rem;
+        color: #344;
+    }
+
+    &__link{
+        text-decoration: none;
+    }
 }
 
-.right-col{
-    background-color: rebeccapurple;
-    width: 25%;
-    
+.featured-post{
+    text-align: center;
+
+    &__primary-title{
+        font-size: 2.5rem;
+    }
+
+    &__title{
+        font-size: 1.8rem;
+        color: #344;
+    }
+
+    &__link{
+        text-decoration: none;
+    }
+}
+
+.category{
+    text-align: center;
+
+    &__primary-title{
+        font-size: 2.5rem;
+    }
+
+    &__title{
+        font-size: 1.8rem;
+        color: #344;
+    }
 }
