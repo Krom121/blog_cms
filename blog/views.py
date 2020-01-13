@@ -4,13 +4,17 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
+from django.http import Http404
 from django.views.generic.edit import FormMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse, reverse_lazy
-from django.views.generic import TemplateView, FormView, ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post, AboutPage, Category
-from .forms import SubscribeForm, CommentForm, ContactForm
+from django.views.generic import (TemplateView, FormView,
 
+            ListView, DetailView, CreateView, 
+            UpdateView, DeleteView
+)
+from .models import Post, AboutPage, Category
+from .forms import SubscribeForm, CommentForm, ContactForm, NewPostForm
 
 #### GENERIC VIEWS #####
 
@@ -77,6 +81,42 @@ class DashView(TemplateView):
         context['latest'] = latest
         return context
 
+#### CRUD OPERATIONS FOR DASHBOARD ######
+
+class CreateNew_post(CreateView):
+    form_class = NewPostForm
+    queryset = Post.published.all()
+    template_name = 'dashboard/create_post.html'
+    success_url = reverse_lazy('dashboard')
+
+    def post(self, request, *args, **kwargs):
+        form = NewPostForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+        return self.get(request, *args, **kwargs)
+
+class UpdatePost(UpdateView):
+    model = Post
+    template_name = 'dashboard/update_post.html'
+    fields = ['title', 'slug', 'author', 'categories', 'description']
+    success_url = reverse_lazy('dashboard')
+
+    def get_object(self):
+        post = super(UpdatePost, self).get_object()
+
+        return post 
+
+class DeletePost(DeleteView):
+    model = Post 
+    template_name ='dashboard/delete_post.html'
+    success_url = reverse_lazy('dashboard')
+
+    def get_object(self):
+        post = super(DeletePost, self).get_object()
+        if not post.user == self.request.user:
+            raise Http404
+        return post
+
 #### POST VIEWS MAIN LANDING PAGE ######
 
 class PostListView(ListView):
@@ -133,4 +173,3 @@ class PostDetailView(DetailView):
             return redirect(reverse("post-detail", kwargs={
                 'pk': post.pk
             }))
-    

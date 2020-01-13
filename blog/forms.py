@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Subscriber, Comment, NewContact
+from .models import Subscriber, Comment, NewContact, Post
 
 #### SUBCRIBER FORM #######
 
@@ -24,3 +24,14 @@ class CommentForm(ModelForm):
     class Meta:
         model = Comment
         fields = ('name', 'email', 'your_comment')
+
+class NewPostForm(ModelForm):
+
+    class Meta:
+        model = Post
+        fields = ('title', 'slug', 'author',
+                'featured','categories', 
+                'description', 'image_thumbnail',
+                'blog_header_image', 'publish',
+                'status'
+)
