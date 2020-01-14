@@ -1,8 +1,6 @@
 {% load static %}
-<form action="{{ action }}" method="POST" role="form">
-    {% csrf_token %}
-
-    {{ form.as_p }}
-
-    <button type="submit" class="btn btn-primary">Publish New Blog</button>
-<form>
+<form action="." method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit">
+</form>

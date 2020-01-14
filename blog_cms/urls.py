@@ -16,6 +16,7 @@ from rest.views import (PostList, PostDetail,
 
 urlpatterns = [
     path('batmans-admin/', admin.site.urls),
+    
     ## BLOG URLS
     path('', PostListView.as_view(), name='post-list'),
     path('post/<slug>/<pk>/', PostDetailView.as_view(), name='post-detail'),
@@ -27,7 +28,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     ## DABOARD URL AND CRUD OPERATIONS
     path('dashboard/', DashView.as_view(), name='dashboard'),
-    path('new_post/create', CreateNew_post.as_view(), name='create_post'),
+    path('newpost/create', CreateNew_post.as_view()),
     path('update_post/<pk>/update', UpdatePost.as_view(), name='update_post'),
     path('delete_post/<pk>/delete', DeletePost.as_view(), name='delete_post'),
     #### REACT NATIVE ELECTRON API'S URLS MOBILE DEVELOPMENT #####

@@ -31,7 +31,6 @@ class NewPostForm(ModelForm):
         model = Post
         fields = ('title', 'slug', 'author',
                 'featured','categories', 
-                'description', 'image_thumbnail',
-                'blog_header_image', 'publish',
+                'description',
                 'status'
 )

@@ -1,6 +1,6 @@
 #  Django project
 .vscode
-migration
+migrations
 __pycache__
 Pipfile.lock
 local.py
